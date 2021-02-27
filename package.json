@@ -4,7 +4,10 @@
   "description": "NPC Maker API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Tests complete\"",
+    "start": "node ./src/index.js",
+    "nodemon": "nodemon ./src/index.js -e js,html,css",
+    "pretest": "eslint ./src --fix"
   },
   "repository": {
     "type": "git",
@@ -17,10 +20,13 @@
   },
   "homepage": "https://github.com/Hacuub/npc-maker#readme",
   "devDependencies": {
-    "eslint": "^7.19.0",
+    "eslint": "^7.20.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "nodemon": "^2.0.7"
   }
 }
