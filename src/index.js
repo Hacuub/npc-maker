@@ -4,6 +4,7 @@ const url = require('url');
 const query = require('querystring');
 const htmlHandler = require('./htmlresponses.js');
 const dataHandler = require('./dataresponses.js');
+const mediaHandler = require('./mediaresponses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -15,7 +16,9 @@ const urlStruct = {
   '/admin.html': htmlHandler.getAdminResponse,
   '/random-char': dataHandler.getRandomChar,
   '/search-char': dataHandler.getNamedChar,
+  '/all-char': dataHandler.getAllChar,
   '/submit-char': dataHandler.submitChar,
+  '/dnd-logo': mediaHandler.getImage,
   notFound: htmlHandler.get404Response,
 };
 

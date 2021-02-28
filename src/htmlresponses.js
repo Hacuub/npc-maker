@@ -20,27 +20,27 @@ const getCSSResponse = (request, response) => {
 };
 
 const getRandomCharResponse = (request, response) => {
-    response.writeHead(404, { 'Content-Type': 'text/html' });
-    response.write(randomCharPage);
-    response.end();
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.write(randomCharPage);
+  response.end();
 };
 
 const getNamedCharResponse = (request, response) => {
-    response.writeHead(404, { 'Content-Type': 'text/html' });
-    response.write(searchCharPage);
-    response.end();
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.write(searchCharPage);
+  response.end();
 };
 
 const getSubmitCharResponse = (request, response) => {
-    response.writeHead(404, { 'Content-Type': 'text/html' });
-    response.write(submitPage);
-    response.end();
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.write(submitPage);
+  response.end();
 };
 
 const getAdminResponse = (request, response) => {
-    response.writeHead(404, { 'Content-Type': 'text/html' });
-    response.write(adminPage);
-    response.end();
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.write(adminPage);
+  response.end();
 };
 
 module.exports = {

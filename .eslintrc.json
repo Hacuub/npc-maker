@@ -18,5 +18,7 @@
         "react"
     ],
     "rules": {
+        "no-plusplus": "warn",
+        "no-param-reassign": "warn"
     }
 }
