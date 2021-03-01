@@ -20,6 +20,7 @@ const urlStruct = {
   '/all-char': dataHandler.getAllChar,
   '/submit-char': dataHandler.submitChar,
   '/dnd-logo': mediaHandler.getImage,
+  '/error': htmlHandler.get404Response,
   notFound: htmlHandler.get404Response,
 };
 

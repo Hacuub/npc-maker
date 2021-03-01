@@ -191,6 +191,7 @@ const getNamedChar = (request, response, type, params) => {
   response.end();
 };
 
+//  does not work rn
 const getAllChar = () => JSON.stringify(characters);
 
 const submitChar = () => {
