@@ -167,7 +167,7 @@ const getNamedCharJSON = (name = '') => {
   return JSON.stringify(char);
 };
 
-const getNamedChar = (request, response, params, type) => {
+const getNamedChar = (request, response, type, params) => {
   //    xml and json
   if (type.includes('text/xml')) {
     if (request.method === 'HEAD') {

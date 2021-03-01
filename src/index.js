@@ -9,6 +9,7 @@ const mediaHandler = require('./mediaresponses.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const urlStruct = {
+  '/': htmlHandler.getHomeResponse,
   '/random-char.html': htmlHandler.getRandomCharResponse,
   '/search-char.html': htmlHandler.getNamedCharResponse,
   '/default-styles.css': htmlHandler.getCSSResponse,
@@ -31,7 +32,7 @@ const onRequest = (request, response) => {
   acceptedTypes = acceptedTypes || [];
 
   if (urlStruct[pathname]) {
-    urlStruct[pathname](request, response, name, acceptedTypes);
+    urlStruct[pathname](request, response, acceptedTypes, name);
   } else {
     urlStruct.notFound(request, response);
   }

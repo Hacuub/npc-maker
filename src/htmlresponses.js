@@ -6,6 +6,7 @@ const randomCharPage = fs.readFileSync(`${__dirname}/../client/random-char.html`
 const searchCharPage = fs.readFileSync(`${__dirname}/../client/search-char.html`);
 const submitPage = fs.readFileSync(`${__dirname}/../client/submit.html`);
 const adminPage = fs.readFileSync(`${__dirname}/../client/admin.html`);
+const homePage = fs.readFileSync(`${__dirname}/../client/index.html`);
 
 const get404Response = (request, response) => {
   response.writeHead(404, { 'Content-Type': 'text/html' });
@@ -43,6 +44,12 @@ const getAdminResponse = (request, response) => {
   response.end();
 };
 
+const getHomeResponse = (request, response) => {
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.write(homePage);
+  response.end();
+};
+
 module.exports = {
   get404Response,
   getCSSResponse,
@@ -50,4 +57,5 @@ module.exports = {
   getNamedCharResponse,
   getSubmitCharResponse,
   getAdminResponse,
+  getHomeResponse,
 };

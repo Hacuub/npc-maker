@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>Search Character</title>
+    <link href="default-styles.css" type="text/css" rel="stylesheet" />
+    </style>
+    <script>
+      const handleResponse = (e) => {
+          console.log("e.target = ", e.target);
+          console.log("e.target.response = ", e.target.response);
+          const obj = JSON.parse(e.target.response);
+          console.log("obj = ", obj);
+
+            let charBox = document.querySelector("#charContainer");
+            charBox.innerHTML = `<ul>
+            <li>Name: ${obj.name}</li>
+            <li>Gender: ${obj.gender}</li>
+            <li>Race: ${obj.race}</li>
+            <li>Class: ${obj.class}</li>
+            <li>Alignment: ${obj.alignment}</li>
+            <li>Disposition: ${obj.disposition}</li>
+            <h3>Combat Stats:</h3>
+            <li>CR: ${obj.Combat.CR}</li>
+            <li>AC & DC: ${obj.Combat.AC_DC}</li>
+            <li>Attack Bonus & Primary Saves: ${obj.Combat.AttackBonus_PrimarySaves}</li>
+            <li>HP: ${obj.Combat.HP}</li>
+            <li>Base Damage: ${obj.Combat.BaseDMG}</li>
+            </ul>`;
+      }
+
+      const downloadChar = (e) => {
+        //console.log(`An element of id=${e.target.id} was clicked!`);
+
+        const charURL = "/search-char?name=" + document.querySelector("#searchbar").value;
+        const xhr = new XMLHttpRequest();
+        xhr.onload = handleResponse;
+        xhr.open("GET", charURL);
+
+        xhr.setRequestHeader('Accept', 'application/javascript');
+        xhr.send();
+      }
+      
+      const init = () => {
+         // An Event *Handler*
+        // document.querySelector("#btnJoke").onclick = downloadJoke; // same as below, less typing, use which ever version you prefer
+      
+        // An Event *Listener*
+        document.querySelector("#btnChar").addEventListener("click", downloadChar);
+      
+        // **Actually, event handlers and listeners are NOT exactly the same in all use cases - what ARE the differences?**
+      }
+      
+      window.onload = init;
+     
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Search For A Specific Character</h1>
+    </header>
+    
+    <section>
+      <h2>Named Character</h2>
+      <input id = "searchbar" type = "text" placeholder = "Search name..."
+      <p><button id="btnChar">Find My Character</button></p>
+      <div id="charContainer">
+        
+      </div>
+    </section>
+    
+  </body>
+</html>
