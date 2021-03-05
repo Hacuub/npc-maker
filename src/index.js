@@ -24,6 +24,28 @@ const urlStruct = {
   notFound: htmlHandler.get404Response,
 };
 
+const handlePost = (request, response, parsedUrl) => {
+  if (parsedUrl.pathname === '/submit-char') {
+    const body = [];
+
+    request.on('error', (err) => {
+      console.dir(err);
+      response.statusCode = 400;
+      response.end();
+    });
+
+    request.on('data', (chunk) => {
+      body.push(chunk);
+    });
+
+    request.on('end', () => {
+      const bodyString = Buffer.concat(body).toString();
+      const bodyParams = query.parse(bodyString);
+      dataHandler.submitChar(request, response, bodyParams);
+    });
+  }
+};
+
 const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
   const { pathname } = parsedUrl;
@@ -31,6 +53,11 @@ const onRequest = (request, response) => {
   const { name } = params;
   let acceptedTypes = request.headers.accept && request.headers.accept.split(',');
   acceptedTypes = acceptedTypes || [];
+
+  if (request.method === 'POST') {
+    handlePost(request, response, parsedUrl);
+    return;
+  }
 
   if (urlStruct[pathname]) {
     urlStruct[pathname](request, response, acceptedTypes, name);

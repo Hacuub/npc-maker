@@ -19,6 +19,7 @@
     ],
     "rules": {
         "no-plusplus": "warn",
-        "no-param-reassign": "warn"
+        "no-param-reassign": "warn",
+        "max-len": "warn"
     }
 }

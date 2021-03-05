@@ -1,11 +1,15 @@
+const { nanoid } = require('nanoid'); // import the library using CommonJS syntax
+
 const characters = [
   {
     name: 'base',
     gender: 'base',
+    age: 'base',
     race: 'base',
     class: 'base',
     alignment: 'base',
     disposition: 'base',
+    backstory: 'base',
     Combat: {
       //  challenge rating
       CR: 'base',
@@ -22,10 +26,12 @@ const characters = [
   {
     name: 'example',
     gender: 'male',
+    age: '1',
     race: 'human',
     class: 'fighter',
     alignment: 'neutral good',
     disposition: 'friendly',
+    backstory: 'barkeeper who you met on your adventure',
     Combat: {
       CR: '1',
       AC_DC: '12',
@@ -37,10 +43,12 @@ const characters = [
   {
     name: 'example2',
     gender: 'female',
+    age: '2',
     race: 'elf',
     class: 'rogue',
     alignment: 'chaotic neutral',
     disposition: 'impatient',
+    backstory: 'pickpocket from the capital',
     Combat: {
       CR: '2',
       AC_DC: '13',
@@ -52,10 +60,12 @@ const characters = [
   {
     name: 'example3',
     gender: 'male',
+    age: '3',
     race: 'dwarf',
     class: 'cleric',
     alignment: 'lawful good',
     disposition: 'angry',
+    backstory: 'priest to Bahamut',
     Combat: {
       CR: '3',
       AC_DC: '13',
@@ -92,10 +102,12 @@ const getRandomCharXML = () => {
         <character>
             <name>${char.name}</name>
             <gender>${char.gender}</gender>
+            <age>${char.age}</age>
             <race>${char.race}</race>
             <class>${char.class}</class>
             <alignment>${char.alignment}</alignment>
             <disposition>${char.disposition}</disposition>
+            <backstory>${char.backstory}</backstory>
             <combat>
                 <cr>${char.Combat.CR}</cr>
                 <ac_dc>${char.Combat.AC_DC}</ac_dc>
@@ -131,21 +143,25 @@ const getRandomChar = (request, response, type) => {
   response.end();
 };
 
-const getNamedCharXML = (name = '') => {
-  let char;
+const getNamedCharXML = (name = null) => {
+  const char = [];
   for (let i = 0; i < characters.length; i++) {
-    if (name === characters[i].name) {
-      char = characters[i];
+    if (characters[i].name.includes(name)) {
+      char.push(characters[i]);
     }
   }
-  const characterXML = `
+  let characterXML = '';
+  for (let i = 0; i < char.length; i++) {
+    characterXML += `
     <character>
         <name>${char.name}</name>
         <gender>${char.gender}</gender>
+        <age>${char.age}</age>
         <race>${char.race}</race>
         <class>${char.class}</class>
         <alignment>${char.alignment}</alignment>
         <disposition>${char.disposition}</disposition>
+        <backstory>${char.backstory}</backstory>
         <combat>
             <cr>${char.Combat.CR}</cr>
             <ac_dc>${char.Combat.AC_DC}</ac_dc>
@@ -154,14 +170,15 @@ const getNamedCharXML = (name = '') => {
             <basedmg>${char.Combat.BaseDMG}</basedmg>
         </combat>
     </character`;
+  }
   return characterXML;
 };
 
-const getNamedCharJSON = (name = '') => {
-  let char;
+const getNamedCharJSON = (name = null) => {
+  const char = [];
   for (let i = 0; i < characters.length; i++) {
-    if (name === characters[i].name) {
-      char = characters[i];
+    if (characters[i].name.includes(name)) {
+      char.push(characters[i]);
     }
   }
   return JSON.stringify(char);
@@ -191,11 +208,47 @@ const getNamedChar = (request, response, type, params) => {
   response.end();
 };
 
-//  does not work rn
-const getAllChar = () => JSON.stringify(characters);
+const getAllChar = (request, response) => {
+  response.writeHead(200, { 'Content-Type': 'application/json' });
+  response.write(JSON.stringify(characters));
+  response.end();
+};
 
-const submitChar = () => {
+const submitChar = (request, response, body) => {
   // non functioning rn
+  const responseJSON = {
+    message: 'All fields are required',
+  };
+
+  if (!body.name || !body.gender || !body.age || !body.race || !body.class || !body.alignment || !body.disposition || !body.backstory || !body.cr) {
+    responseJSON.id = 'missingParams';
+    response.writeHead(400, { 'Content-Type': 'application/json' });
+    response.write(JSON.stringify(responseJSON));
+    response.end();
+    return;
+  }
+  const uuid = nanoid();
+
+  characters[uuid] = {};
+
+  characters[uuid].name = body.name;
+  characters[uuid].gender = body.gender;
+  characters[uuid].race = body.race;
+  characters[uuid].age = body.age;
+  characters[uuid].class = body.class;
+  characters[uuid].alignment = body.alignment;
+  characters[uuid].disposition = body.disposition;
+  characters[uuid].backstory = body.backstory;
+  characters[uuid].Combat.CR = body.cr;
+  characters[uuid].Combat.AC_DC = Math.floor(12 + (parseInt(body.CR, 10) / 2));
+  characters[uuid].Combat.AttackBonus_PrimarySaves = Math.floor(3 + (parseInt(body.CR, 10) / 2));
+  characters[uuid].Combat.HP = 15 + (15 * parseInt(body.CR, 10));
+  characters[uuid].Combat.BaseDMG = 5 + (5 * parseInt(body.CR, 10));
+
+  responseJSON.message = 'New Character Created';
+  response.writeHead(201, { 'Content-Type': 'application/json' });
+  response.write(JSON.stringify(responseJSON));
+  response.end();
 };
 
 module.exports = {

@@ -2,6 +2,24 @@
   <head>
     <title>Submit Character</title>
     <link href="default-styles.css" type="text/css" rel="stylesheet" />
+    <script>
+      const handleResponse = (xhr) => {
+        const content = document.querySelector('#content');
+      };
+
+      const sendPost = (e, submitForm) => {
+
+      };
+
+      const init = () =>{
+        const submitForm = document.querySelector("#submitForm");
+        const addChar = (e) => sendPost(e, submitForm);
+        submitForm.addEventListener('submit', addChar);
+      };
+
+      window.onload = init;
+    </script>
+    </head>
     <header>
       <h1>NPC Maker Submit Page</h1>
       <div id = "navbar">
@@ -14,23 +32,29 @@
     </header>
     <div id = main>
       <h2>Character to Submit (not working)</h2>
-      <form>
-        <label for  = name>Name: </label>
-        <input type = text id = name>
-        <label for  = gender>Gender: </label>
-        <input type = text id = gender>
-        <label for  = race>Race: </label>
-        <input type = text id = race>
-        <label for  = class>Class: </label>
-        <input type = text id = class>
-        <label for  = alignment>Alignment: </label>
-        <input type = text id = alignment>
-        <label for  = disposition>Disposition: </label>
-        <input type = text id = disposition>
-        <label for  = cr>CR: </label>
-        <input type = text id = cr>
+      <form id = submitForm action = /submit-char method="POST">
+        <label for  = nameField>Name: </label>
+        <input type = text id = nameField name = name>
+        <label for  = genderField>Gender: </label>
+        <input type = text id = genderField name = gender>
+        <label for  = ageField>Age: </label>
+        <input type = text id = ageField>
+        <label for  = raceField>Race: </label>
+        <input type = text id = raceField name = race>
+        <label for  = classField>Class: </label>
+        <input type = text id = classField name = class>
+        <label for  = alignmentField>Alignment: </label>
+        <input type = text id = alignmentField name = alignment>
+        <label for  = dispositioFieldn>Disposition: </label>
+        <input type = text id = dispositionField name = disposition>
+        <label for  = backstoryField>Backstory: </label>
+        <input type = text id = backstoryField name = backstory>
+        <label for  = crField>CR: </label>
+        <input type = text id = crField name = cr>
         <input type = submit>
       </form>
+      <section id = content>
+      </section>
     </div>
   </body>
 </html>
