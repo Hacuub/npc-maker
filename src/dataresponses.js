@@ -1,5 +1,3 @@
-const { nanoid } = require('nanoid'); // import the library using CommonJS syntax
-
 const characters = [
   {
     name: 'base',
@@ -227,27 +225,47 @@ const submitChar = (request, response, body) => {
     response.end();
     return;
   }
-  const uuid = nanoid();
 
-  characters[uuid] = {};
+  characters.push({
+    name: 'base',
+    gender: 'base',
+    age: 'base',
+    race: 'base',
+    class: 'base',
+    alignment: 'base',
+    disposition: 'base',
+    backstory: 'base',
+    Combat: {
+      CR: 'base',
+      AC_DC: 'base',
+      AttackBonus_PrimarySaves: 'base',
+      HP: 'base',
+      BaseDMG: 'base',
+    },
+  });
 
-  characters[uuid].name = body.name;
-  characters[uuid].gender = body.gender;
-  characters[uuid].race = body.race;
-  characters[uuid].age = body.age;
-  characters[uuid].class = body.class;
-  characters[uuid].alignment = body.alignment;
-  characters[uuid].disposition = body.disposition;
-  characters[uuid].backstory = body.backstory;
-  characters[uuid].Combat.CR = body.cr;
-  characters[uuid].Combat.AC_DC = Math.floor(12 + (parseInt(body.CR, 10) / 2));
-  characters[uuid].Combat.AttackBonus_PrimarySaves = Math.floor(3 + (parseInt(body.CR, 10) / 2));
-  characters[uuid].Combat.HP = 15 + (15 * parseInt(body.CR, 10));
-  characters[uuid].Combat.BaseDMG = 5 + (5 * parseInt(body.CR, 10));
+  characters[characters.length - 1].name = body.name;
+  characters[characters.length - 1].gender = body.gender;
+  characters[characters.length - 1].race = body.race;
+  characters[characters.length - 1].age = body.age;
+  characters[characters.length - 1].class = body.class;
+  characters[characters.length - 1].alignment = body.alignment;
+  characters[characters.length - 1].disposition = body.disposition;
+  characters[characters.length - 1].backstory = body.backstory;
+  characters[characters.length - 1].Combat.CR = body.cr;
+  characters[characters.length - 1].Combat.AC_DC = Math.floor(12 + (parseInt(body.cr, 10) / 2));
+  characters[characters.length - 1].Combat.AttackBonus_PrimarySaves = Math.floor(3 + (parseInt(body.cr, 10) / 2));
+  characters[characters.length - 1].Combat.HP = 15 + (15 * parseInt(body.cr, 10));
+  characters[characters.length - 1].Combat.BaseDMG = 5 + (5 * parseInt(body.cr, 10));
 
   responseJSON.message = 'New Character Created';
   response.writeHead(201, { 'Content-Type': 'application/json' });
   response.write(JSON.stringify(responseJSON));
+  response.end();
+};
+
+const deleteChar = (request, response) => {
+  response.writeHead(204, { 'Content-Type': 'application/json' });
   response.end();
 };
 
@@ -256,4 +274,5 @@ module.exports = {
   getNamedChar,
   getAllChar,
   submitChar,
+  deleteChar,
 };

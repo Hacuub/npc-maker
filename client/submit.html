@@ -4,11 +4,48 @@
     <link href="default-styles.css" type="text/css" rel="stylesheet" />
     <script>
       const handleResponse = (xhr) => {
-        const content = document.querySelector('#content');
+        const result = document.querySelector('#result');
+        switch(xhr.status) {
+          case 201:
+            result.innerHTML = '<p>Successfully created new character</p>';
+            break;
+          case 400:
+            result.innerHTML = '<p>Failed to create ner character</p>';
+            break;
+          default:
+            result.innerHTML = '<p>Error code not implemented</p>';
+            break;
+        }
       };
 
       const sendPost = (e, submitForm) => {
+        e.preventDefault();
 
+        const nameAction = submitForm.getAttribute('action');
+        const nameMethod = submitForm.getAttribute('method');
+
+        const nameField = submitForm.querySelector('#nameField');
+        const genderField = submitForm.querySelector('#genderField');
+        const ageField = submitForm.querySelector('#ageField');
+        const raceField = submitForm.querySelector('#raceField');
+        const classField = submitForm.querySelector('#classField');
+        const alignmentField = submitForm.querySelector('#alignmentField');
+        const dispositionField = submitForm.querySelector('#dispositionField');
+        const backstoryField = submitForm.querySelector('#backstoryField');
+        const crField = submitForm.querySelector('#crField');
+
+        const xhr = new XMLHttpRequest();
+        xhr.open(nameMethod, nameAction);
+
+        xhr.setRequestHeader('Accept', 'application/json');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = () => handleResponse(xhr);
+
+        const formData = `name=${nameField.value}&gender=${genderField.value}&age=${ageField.value}&race=${raceField.value}&class=${classField.value}&alignment=${alignmentField.value}&disposition=${dispositionField.value}&backstory=${backstoryField.value}&cr=${crField.value}`;
+        xhr.send(formData);
+
+        return false;
       };
 
       const init = () =>{
@@ -38,7 +75,7 @@
         <label for  = genderField>Gender: </label>
         <input type = text id = genderField name = gender>
         <label for  = ageField>Age: </label>
-        <input type = text id = ageField>
+        <input type = text id = ageField name = age>
         <label for  = raceField>Race: </label>
         <input type = text id = raceField name = race>
         <label for  = classField>Class: </label>
@@ -53,6 +90,9 @@
         <input type = text id = crField name = cr>
         <input type = submit>
       </form>
+      <div id = result>
+
+      </div>
       <section id = content>
       </section>
     </div>
