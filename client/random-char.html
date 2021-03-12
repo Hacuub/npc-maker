@@ -14,6 +14,7 @@
             let charBox = document.querySelector("#charContainer");
             if(obj != JSON.stringify(-1)){
               charBox.innerHTML = `<ul>
+              <h3>General Stats:</h3>
               <li>Name: ${obj.name}</li>
               <li>Gender: ${obj.gender}</li>
               <li>Age: ${obj.age}</li>
@@ -48,7 +49,7 @@
       
       //  sets up the event listener for the button and immediately downloads a character to view
       const init = () => {
-        document.querySelector("#btnChar").addEventListener("click", downloadChar);
+        document.querySelector("#rndBtnChar").addEventListener("click", downloadChar);
         downloadChar();
       }
       
@@ -57,24 +58,25 @@
     </script>
   </head>
   <body>
-    <header>
-      <h1>Get A Random Character</h1>
-      <div id = "navbar">
-        <a href = "/">Home</a>
-        <a href = "/random-char.html">Random Character</a>
-        <a href = "/search-char.html">Search Character</a>
-        <a href = "/submit.html">Submit Character</a>
-        <a href = "/admin.html">Admin</a>
+    <header class = header>
+      <h1>NPC Maker <img id = dndLogo src = dnd-logo alt = "Dungeons and Dragons Logo"></h1>
+      <div class = "navbar">
+        <a href = "/">Home</a> | 
+        <a href = "/random-char.html">Random Character</a> | 
+        <a href = "/search-char.html">Search Character</a> | 
+        <a href = "/submit.html">Submit Character</a> | 
+        <a href = "/admin.html">Admin</a> | 
       </div>
     </header>
     
-    <section>
+    <div class=randomContent>
       <h2>Random Character</h2>
-      <p><button id="btnChar">Show me another</button></p>
       <div id="charContainer">
         
       </div>
-    </section>
+      <button id="rndBtnChar">Show me another</button>
+    </div>
+    <footer class = footer>Kemp-Schneider 2020</footer>
     
   </body>
 </html>

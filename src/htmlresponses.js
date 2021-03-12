@@ -17,7 +17,7 @@ const get404Response = (request, response) => {
   response.end();
 };
 
-//  sends to css page
+//  sends to default css page
 const getCSSResponse = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/css' });
   response.write(cssPage);
