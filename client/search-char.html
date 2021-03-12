@@ -11,26 +11,33 @@
           console.log("obj = ", obj);
 
             let charBox = document.querySelector("#charContainer");
-            charBox.innerHTML = '';
-            for(let i = 0; i < obj.length; i++)
-            {
-              charBox.innerHTML += `<ul>
-                <h3>Character: ${i+1}</h3>
-                <li>Name: ${obj[i].name}</li>
-                <li>Gender: ${obj[i].gender}</li>
-                <li>Age: ${obj[i].age}</li>
-                <li>Race: ${obj[i].race}</li>
-                <li>Class: ${obj[i].class}</li>
-                <li>Alignment: ${obj[i].alignment}</li>
-                <li>Disposition: ${obj[i].disposition}</li>
-                <li>Backstory: ${obj[i].backstory}</li>
-                <h4>Combat Stats:</h4>
-                <li>CR: ${obj[i].Combat.CR}</li>
-                <li>AC & DC: ${obj[i].Combat.AC_DC}</li>
-                <li>Attack Bonus & Primary Saves: ${obj[i].Combat.AttackBonus_PrimarySaves}</li>
-                <li>HP: ${obj[i].Combat.HP}</li>
-                <li>Base Damage: ${obj[i].Combat.BaseDMG}</li>
-              </ul>`;
+            if(obj != JSON.stringify(-1)){
+              charBox.innerHTML = '';
+              for(let i = 0; i < obj.length; i++)
+              {
+                charBox.innerHTML += `<ul>
+                  <h3>Character: ${i+1}</h3>
+                  <li>Name: ${obj[i].name}</li>
+                  <li>Gender: ${obj[i].gender}</li>
+                  <li>Age: ${obj[i].age}</li>
+                  <li>Race: ${obj[i].race}</li>
+                  <li>Class: ${obj[i].class}</li>
+                  <li>Alignment: ${obj[i].alignment}</li>
+                  <li>Disposition: ${obj[i].disposition}</li>
+                  <li>Backstory: ${obj[i].backstory}</li>
+                  <h4>Combat Stats:</h4>
+                  <li>CR: ${obj[i].Combat.CR}</li>
+                  <li>AC & DC: ${obj[i].Combat.AC_DC}</li>
+                  <li>Attack Bonus & Primary Saves: ${obj[i].Combat.AttackBonus_PrimarySaves}</li>
+                  <li>HP: ${obj[i].Combat.HP}</li>
+                  <li>Base Damage: ${obj[i].Combat.BaseDMG}</li>
+                </ul>`;
+              }
+              if(obj.length===0){
+                charBox.innerHTML = `<p>No characters in the database with name "${document.querySelector("#searchbar").value}"</p>`;
+              }
+            }else{
+              charBox.innerHTML = `<p>No characters in the database</p>`;
             }
       }
 

@@ -15,6 +15,7 @@
             {
               charBox.innerHTML += `<ul>
                 <h3>Character: ${i+1}</h3>
+                <li>Index: ${obj[i].index}</li>
                 <li>Name: ${obj[i].name}</li>
                 <li>Gender: ${obj[i].gender}</li>
                 <li>Age: ${obj[i].age}</li>
@@ -29,10 +30,23 @@
                 <li>Attack Bonus & Primary Saves: ${obj[i].Combat.AttackBonus_PrimarySaves}</li>
                 <li>HP: ${obj[i].Combat.HP}</li>
                 <li>Base Damage: ${obj[i].Combat.BaseDMG}</li>
-                <li><button class = btn${i}>Delete</button></li>
+                <li><button class = btn${i} onClick = "removeChar(${obj[i].index})">Delete</button></li>
               </ul>`;
             }
       }
+
+      const removeChar = (index) => {
+        const charURL = "/delete-char";
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", charURL);
+        xhr.setRequestHeader('Accept', 'application/javascript');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        const formData = `index=${index}`;
+        xhr.send();
+
+        xhr.onload = downloadChar();
+        return false;
+      };
 
       const downloadChar = (e) => {
         //console.log(`An element of id=${e.target.id} was clicked!`);

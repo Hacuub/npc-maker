@@ -1,5 +1,6 @@
 const characters = [
   {
+    index: 0,
     name: 'base',
     gender: 'base',
     age: 'base',
@@ -22,6 +23,7 @@ const characters = [
     },
   },
   {
+    index: 1,
     name: 'example',
     gender: 'male',
     age: '1',
@@ -39,6 +41,7 @@ const characters = [
     },
   },
   {
+    index: 2,
     name: 'example2',
     gender: 'female',
     age: '2',
@@ -56,6 +59,7 @@ const characters = [
     },
   },
   {
+    index: 3,
     name: 'example3',
     gender: 'male',
     age: '3',
@@ -90,14 +94,22 @@ const getBinarySize = (string) => Buffer.byteLength(string, 'utf8');
 
 const getRandomCharJSON = () => {
   shuffleArray(characters);
-  const char = characters[0];
+  let char;
+  if(characters.length > 0){
+    char = characters[0];
+  }else{
+    char = -1;
+  }
   return JSON.stringify(char);
 };
 const getRandomCharXML = () => {
   shuffleArray(characters);
   const char = characters[0];
-  const characterXML = `
+  let characterXML;
+  if(characters.length > 0){
+  characterXML = `
         <character>
+            <index>${char.index}</name>
             <name>${char.name}</name>
             <gender>${char.gender}</gender>
             <age>${char.age}</age>
@@ -114,6 +126,9 @@ const getRandomCharXML = () => {
                 <basedmg>${char.Combat.BaseDMG}</basedmg>
             </combat>
         </character`;
+  }else{
+    characterXML = `<character>No characters in database</character>`
+  }
   return characterXML;
 };
 
@@ -143,41 +158,50 @@ const getRandomChar = (request, response, type) => {
 
 const getNamedCharXML = (name = null) => {
   const char = [];
-  for (let i = 0; i < characters.length; i++) {
-    if (characters[i].name.includes(name)) {
-      char.push(characters[i]);
-    }
-  }
   let characterXML = '';
-  for (let i = 0; i < char.length; i++) {
-    characterXML += `
-    <character>
-        <name>${char.name}</name>
-        <gender>${char.gender}</gender>
-        <age>${char.age}</age>
-        <race>${char.race}</race>
-        <class>${char.class}</class>
-        <alignment>${char.alignment}</alignment>
-        <disposition>${char.disposition}</disposition>
-        <backstory>${char.backstory}</backstory>
-        <combat>
-            <cr>${char.Combat.CR}</cr>
-            <ac_dc>${char.Combat.AC_DC}</ac_dc>
-            <attackbonus_promarysaves>${char.Combat.AttackBonus_PrimarySaves}</attackbonus_primarysaves>
-            <hp>${char.Combat.HP}</hp>
-            <basedmg>${char.Combat.BaseDMG}</basedmg>
-        </combat>
-    </character`;
+  if(characters.length > 0){
+    for (let i = 0; i < characters.length; i++) {
+      if (characters[i].name.includes(name)) {
+        char.push(characters[i]);
+      }
+    }
+    for (let i = 0; i < char.length; i++) {
+      characterXML += `
+      <character>
+          <index>${char.index}</name>
+          <name>${char.name}</name>
+          <gender>${char.gender}</gender>
+          <age>${char.age}</age>
+          <race>${char.race}</race>
+          <class>${char.class}</class>
+          <alignment>${char.alignment}</alignment>
+          <disposition>${char.disposition}</disposition>
+          <backstory>${char.backstory}</backstory>
+          <combat>
+              <cr>${char.Combat.CR}</cr>
+              <ac_dc>${char.Combat.AC_DC}</ac_dc>
+              <attackbonus_promarysaves>${char.Combat.AttackBonus_PrimarySaves}</attackbonus_primarysaves>
+              <hp>${char.Combat.HP}</hp>
+              <basedmg>${char.Combat.BaseDMG}</basedmg>
+          </combat>
+      </character`;
+    }
+  }else{
+    characterXML = null;
   }
   return characterXML;
 };
 
 const getNamedCharJSON = (name = null) => {
-  const char = [];
-  for (let i = 0; i < characters.length; i++) {
-    if (characters[i].name.includes(name)) {
-      char.push(characters[i]);
+  let char = [];
+  if(characters.length > 0){
+    for (let i = 0; i < characters.length; i++) {
+      if (characters[i].name.includes(name)) {
+        char.push(characters[i]);
+      }
     }
+  }else{
+    char = -1;
   }
   return JSON.stringify(char);
 };
@@ -227,6 +251,7 @@ const submitChar = (request, response, body) => {
   }
 
   characters.push({
+    index: characters.length,
     name: 'base',
     gender: 'base',
     age: 'base',
@@ -264,7 +289,17 @@ const submitChar = (request, response, body) => {
   response.end();
 };
 
-const deleteChar = (request, response) => {
+const deleteChar = (request, response, body) => {
+  const index = Number(body.index);
+
+  const responseJSON = {
+    message: `Unable to Delete character at index: ${index}`,
+  };
+  characters.splice(index, 1);
+  for(let i = 0; i < characters.length; i++){
+    characters[i].index = i;
+  }
+
   response.writeHead(204, { 'Content-Type': 'application/json' });
   response.end();
 };

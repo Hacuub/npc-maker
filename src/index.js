@@ -45,6 +45,26 @@ const handlePost = (request, response, parsedUrl) => {
       dataHandler.submitChar(request, response, bodyParams);
     });
   }
+  //  jank way to delete characters because i dont understand how to send deletes still
+  else if (parsedUrl.pathname === '/delete-char'){
+    const body = [];
+
+    request.on('error', (err) => {
+      console.dir(err);
+      response.statusCode = 400;
+      response.end();
+    });
+
+    request.on('data', (chunk) => {
+      body.push(chunk);
+    });
+
+    request.on('end', () => {
+      const bodyString = Buffer.concat(body).toString();
+      const bodyParams = query.parse(bodyString);
+      dataHandler.deleteChar(request, response, bodyParams);
+    });
+  }
 };
 
 const onRequest = (request, response) => {
