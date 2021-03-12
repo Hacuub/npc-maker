@@ -4,6 +4,7 @@
     <link href="default-styles.css" type="text/css" rel="stylesheet" />
     </style>
     <script>
+      //  handles the downloaded response and displays it in a meaningful way to the user
       const handleResponse = (e) => {
           console.log("e.target = ", e.target);
           console.log("e.target.response = ", e.target.response);
@@ -33,8 +34,8 @@
             }
       }
 
+      //  sends an xhr request to the server to download a  random character
       const downloadChar = (e) => {
-        //console.log(`An element of id=${e.target.id} was clicked!`);
 
         const charURL = "/random-char";
         const xhr = new XMLHttpRequest();
@@ -45,14 +46,9 @@
         xhr.send();
       }
       
+      //  sets up the event listener for the button and immediately downloads a character to view
       const init = () => {
-         // An Event *Handler*
-        // document.querySelector("#btnJoke").onclick = downloadJoke; // same as below, less typing, use which ever version you prefer
-      
-        // An Event *Listener*
         document.querySelector("#btnChar").addEventListener("click", downloadChar);
-      
-        // **Actually, event handlers and listeners are NOT exactly the same in all use cases - what ARE the differences?**
         downloadChar();
       }
       

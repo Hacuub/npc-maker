@@ -1,3 +1,4 @@
+//  database of characters
 const characters = [
   {
     index: 0,
@@ -92,6 +93,7 @@ function shuffleArray(array) {
 // Refactored to an arrow function by ACJ
 const getBinarySize = (string) => Buffer.byteLength(string, 'utf8');
 
+//  gets a random character in the JSON format
 const getRandomCharJSON = () => {
   shuffleArray(characters);
   let char;
@@ -102,6 +104,8 @@ const getRandomCharJSON = () => {
   }
   return JSON.stringify(char);
 };
+
+//  gets a random character in the XML format
 const getRandomCharXML = () => {
   shuffleArray(characters);
   const char = characters[0];
@@ -132,6 +136,7 @@ const getRandomCharXML = () => {
   return characterXML;
 };
 
+//  handles getting the random character, and deciding if it needs to be in XML or JSON
 const getRandomChar = (request, response, type) => {
   //    xml and json
   if (type.includes('text/xml')) {
@@ -156,6 +161,7 @@ const getRandomChar = (request, response, type) => {
   response.end();
 };
 
+//  gets a named character in the XML format
 const getNamedCharXML = (name = null) => {
   const char = [];
   let characterXML = '';
@@ -192,6 +198,7 @@ const getNamedCharXML = (name = null) => {
   return characterXML;
 };
 
+//  gets a named character in the JSON format
 const getNamedCharJSON = (name = null) => {
   let char = [];
   if (characters.length > 0) {
@@ -206,6 +213,7 @@ const getNamedCharJSON = (name = null) => {
   return JSON.stringify(char);
 };
 
+//  handles getting the named character, and deciding if it needs to be in XML or JSON
 const getNamedChar = (request, response, type, params) => {
   //    xml and json
   if (type.includes('text/xml')) {
@@ -230,14 +238,15 @@ const getNamedChar = (request, response, type, params) => {
   response.end();
 };
 
+//  handles getting all the characters in the database
 const getAllChar = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'application/json' });
   response.write(JSON.stringify(characters));
   response.end();
 };
 
+//  submits a new character to be stored in the database
 const submitChar = (request, response, body) => {
-  // non functioning rn
   const responseJSON = {
     message: 'All fields are required',
   };
@@ -289,6 +298,7 @@ const submitChar = (request, response, body) => {
   response.end();
 };
 
+//  handles the deleteion of characters based on their index in the database
 const deleteChar = (request, response, body) => {
   const index = Number(body.index);
   characters.splice(index, 1);
@@ -300,6 +310,7 @@ const deleteChar = (request, response, body) => {
   response.end();
 };
 
+//  exports functions
 module.exports = {
   getRandomChar,
   getNamedChar,

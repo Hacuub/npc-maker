@@ -4,6 +4,7 @@
     <link href="default-styles.css" type="text/css" rel="stylesheet" />
     </style>
     <script>
+      //  handles the downloaded response and displays it in a meaningful way to the user
       const handleResponse = (e) => {
           console.log("e.target = ", e.target);
           console.log("e.target.response = ", e.target.response);
@@ -33,17 +34,17 @@
                   <li>Base Damage: ${obj[i].Combat.BaseDMG}</li>
                 </ul>`;
               }
+              //  handles errors gracefully
               if(obj.length===0){
                 charBox.innerHTML = `<p>No characters in the database with name "${document.querySelector("#searchbar").value}"</p>`;
               }
-            }else{
-              charBox.innerHTML = `<p>No characters in the database</p>`;
-            }
+              }else{
+                charBox.innerHTML = `<p>No characters in the database</p>`;
+              }
       }
 
+       //  sends an xhr request to the server to download a character based on an input name
       const downloadChar = (e) => {
-        //console.log(`An element of id=${e.target.id} was clicked!`);
-
         const charURL = "/search-char?name=" + document.querySelector("#searchbar").value;
         const xhr = new XMLHttpRequest();
         xhr.onload = handleResponse;
@@ -53,14 +54,9 @@
         xhr.send();
       }
       
+      //  sets up the event listener for the button
       const init = () => {
-         // An Event *Handler*
-        // document.querySelector("#btnJoke").onclick = downloadJoke; // same as below, less typing, use which ever version you prefer
-      
-        // An Event *Listener*
         document.querySelector("#btnChar").addEventListener("click", downloadChar);
-      
-        // **Actually, event handlers and listeners are NOT exactly the same in all use cases - what ARE the differences?**
       }
       
       window.onload = init;

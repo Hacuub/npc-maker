@@ -3,6 +3,8 @@
     <title>NPC Maker Admin Page</title>
     <link href="default-styles.css" type="text/css" rel="stylesheet" />
     <script>
+
+      //  handles the downloaded data and viewing it
       const handleResponse = (e) => {
           console.log("e.target = ", e.target);
           console.log("e.target.response = ", e.target.response);
@@ -35,10 +37,11 @@
             }
       }
 
+      //  sends an xhr request to the server to remove  a certain character and redownloads the data
       const removeChar = (index) => {
         const charURL = "/delete-char";
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", charURL);
+        xhr.open("DELETE", charURL);
         xhr.setRequestHeader('Accept', 'application/javascript');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         const formData = `index=${index}`;
@@ -48,9 +51,8 @@
         return false;
       };
 
+      //  sends an xhr request to the server to download all of the characters
       const downloadChar = (e) => {
-        //console.log(`An element of id=${e.target.id} was clicked!`);
-
         const charURL = "/all-char";
         const xhr = new XMLHttpRequest();
         xhr.onload = handleResponse;
@@ -60,6 +62,7 @@
         xhr.send();
       }
       
+      //  immediately downloads the characters on page loadup
       const init = () => {
         downloadChar();
       }
