@@ -50,7 +50,7 @@ const handlePost = (request, response, parsedUrl) => {
   }
 };
 
-//cobines all the seperate content that needs to be deleted into a code readable format
+// cobines all the seperate content that needs to be deleted into a code readable format
 const handleDelete = (request, response, parsedUrl) => {
   if (parsedUrl.pathname === '/delete-char') {
     const body = [];
