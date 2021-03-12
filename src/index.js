@@ -44,9 +44,8 @@ const handlePost = (request, response, parsedUrl) => {
       const bodyParams = query.parse(bodyString);
       dataHandler.submitChar(request, response, bodyParams);
     });
-  }
-  //  jank way to delete characters because i dont understand how to send deletes still
-  else if (parsedUrl.pathname === '/delete-char'){
+  } else if (parsedUrl.pathname === '/delete-char') {
+    //  jank way to delete characters because i dont understand how to send deletes still
     const body = [];
 
     request.on('error', (err) => {

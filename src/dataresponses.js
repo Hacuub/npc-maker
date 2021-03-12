@@ -95,9 +95,9 @@ const getBinarySize = (string) => Buffer.byteLength(string, 'utf8');
 const getRandomCharJSON = () => {
   shuffleArray(characters);
   let char;
-  if(characters.length > 0){
+  if (characters.length > 0) {
     char = characters[0];
-  }else{
+  } else {
     char = -1;
   }
   return JSON.stringify(char);
@@ -106,8 +106,8 @@ const getRandomCharXML = () => {
   shuffleArray(characters);
   const char = characters[0];
   let characterXML;
-  if(characters.length > 0){
-  characterXML = `
+  if (characters.length > 0) {
+    characterXML = `
         <character>
             <index>${char.index}</name>
             <name>${char.name}</name>
@@ -126,8 +126,8 @@ const getRandomCharXML = () => {
                 <basedmg>${char.Combat.BaseDMG}</basedmg>
             </combat>
         </character`;
-  }else{
-    characterXML = `<character>No characters in database</character>`
+  } else {
+    characterXML = '<character>No characters in database</character>';
   }
   return characterXML;
 };
@@ -159,7 +159,7 @@ const getRandomChar = (request, response, type) => {
 const getNamedCharXML = (name = null) => {
   const char = [];
   let characterXML = '';
-  if(characters.length > 0){
+  if (characters.length > 0) {
     for (let i = 0; i < characters.length; i++) {
       if (characters[i].name.includes(name)) {
         char.push(characters[i]);
@@ -186,7 +186,7 @@ const getNamedCharXML = (name = null) => {
           </combat>
       </character`;
     }
-  }else{
+  } else {
     characterXML = null;
   }
   return characterXML;
@@ -194,13 +194,13 @@ const getNamedCharXML = (name = null) => {
 
 const getNamedCharJSON = (name = null) => {
   let char = [];
-  if(characters.length > 0){
+  if (characters.length > 0) {
     for (let i = 0; i < characters.length; i++) {
       if (characters[i].name.includes(name)) {
         char.push(characters[i]);
       }
     }
-  }else{
+  } else {
     char = -1;
   }
   return JSON.stringify(char);
@@ -291,12 +291,8 @@ const submitChar = (request, response, body) => {
 
 const deleteChar = (request, response, body) => {
   const index = Number(body.index);
-
-  const responseJSON = {
-    message: `Unable to Delete character at index: ${index}`,
-  };
   characters.splice(index, 1);
-  for(let i = 0; i < characters.length; i++){
+  for (let i = 0; i < characters.length; i++) {
     characters[i].index = i;
   }
 
