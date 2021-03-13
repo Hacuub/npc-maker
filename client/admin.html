@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <title>NPC Maker Admin Page</title>
     <link href="default-styles.css" type="text/css" rel="stylesheet" />
     <script>
@@ -11,11 +13,13 @@
           const obj = JSON.parse(e.target.response);
           console.log("obj = ", obj);
 
-          let charBox = document.querySelector("#charContainer");
+          let charBox = document.querySelector("#adminCharContainer");
             charBox.innerHTML = '';
             for(let i = 0; i < obj.length; i++)
             {
-              charBox.innerHTML += `<ul>
+              charBox.innerHTML += `
+              <div class = adminCharBox>
+                <ul>
                 <h3>Character: ${i+1}</h3>
                 <li>Index: ${obj[i].index}</li>
                 <li>Name: ${obj[i].name}</li>
@@ -32,8 +36,9 @@
                 <li>Attack Bonus & Primary Saves: ${obj[i].Combat.AttackBonus_PrimarySaves}</li>
                 <li>HP: ${obj[i].Combat.HP}</li>
                 <li>Base Damage: ${obj[i].Combat.BaseDMG}</li>
-                <li><button class = btn${i} onClick = "removeChar(${obj[i].index})">Delete</button></li>
-              </ul>`;
+              </ul>
+                <button class = adminBtn onClick = "removeChar(${obj[i].index})">Delete</button>
+              </div>`;
             }
       }
 
@@ -81,9 +86,11 @@
         <a href = "/admin.html">Admin</a> | 
       </div>
     </header>
-    <h2>All Characters</h2>
-    <div id="charContainer">
-      
+    <div class = adminContent>
+      <h2>Admin Page</h2>
+      <div id="adminCharContainer">
+        
+      </div>
     </div>
     <footer class = footer>Kemp-Schneider 2020</footer>
   </body>
