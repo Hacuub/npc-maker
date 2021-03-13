@@ -193,3 +193,74 @@ h1{
     list-style-type: none;
     padding-left: 2vw;
 }
+.namedContent{
+    padding-top: 17vh;
+    display: grid;
+    justify-content: center;
+    background-color: rgb(195, 195, 195);
+    margin: 0 14vw 0 14vw;
+    border-style: none solid none solid ;
+    grid-template-rows: 6vh 5vh 62.5vh 5vh;
+    width: 70.375vw;
+
+}
+.namedContent h2{
+    position: fixed;
+    width: 70.375vw;
+    background-color: rgb(195, 195, 195);
+    border-style: solid ;
+    margin: 0;
+    padding: 0;
+    height: 5vh;
+    text-align: center;
+    font-size: 2vw;
+}
+#btnChar{
+    position: fixed;
+    bottom: 4vh;
+    width: 70.5vw;
+    height: 5vh;
+    background-color: red;
+    font-size: 1.5vw;
+    color: white;
+    border: none;
+    margin-bottom: 0vh;
+    border-style: none solid none solid;
+    border-color: black;
+}
+#searchBar{
+    top: 23.25vh;
+    width: 70.5vw;
+    position: fixed;
+    color: black;
+    background-color: white;
+    border-color: black;
+    height: 5vh;
+    font-size: 3vh;
+    text-align: center;
+}
+#namedCharContainer{
+    border-style: none solid none solid ;
+    background-color: rgb(195, 195, 195);
+}
+#namedCharContainer ul{
+    background-color: rgb(195, 195, 195);
+    font-size: 1vw;
+}
+#namedCharContainer h3{
+    background-color: rgb(195, 195, 195);
+    color: red;
+    font-size: 1.5vw;
+    margin-bottom: .5vh;
+}
+#namedCharContainer li{
+    background-color: rgb(195, 195, 195);
+    list-style-type: none;
+    padding-left: 2vw;
+}
+.namedCharBox{
+    border-style: none solid none solid ;
+    background-color: rgb(195, 195, 195);
+    width: 70.5vw;
+    padding:0 auto 0 auto;
+}

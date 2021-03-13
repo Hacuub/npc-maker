@@ -26,7 +26,7 @@
                 <li>Alignment: ${obj[i].alignment}</li>
                 <li>Disposition: ${obj[i].disposition}</li>
                 <li>Backstory: ${obj[i].backstory}</li>
-                <h4>Combat Stats:</h4>
+                <h3>Combat Stats:</h3>
                 <li>CR: ${obj[i].Combat.CR}</li>
                 <li>AC & DC: ${obj[i].Combat.AC_DC}</li>
                 <li>Attack Bonus & Primary Saves: ${obj[i].Combat.AttackBonus_PrimarySaves}</li>
@@ -71,8 +71,8 @@
      
     </script>
     </head>
-    <header>
-      <h1>NPC Maker Admin Page</h1>
+    <header class = header>
+      <h1>NPC Maker <img id = dndLogo src = dnd-logo alt = "Dungeons and Dragons Logo"></h1>
       <div class = "navbar">
         <a href = "/">Home</a> | 
         <a href = "/random-char.html">Random Character</a> | 
@@ -80,12 +80,11 @@
         <a href = "/submit.html">Submit Character</a> | 
         <a href = "/admin.html">Admin</a> | 
       </div>
-  </header>
-  <section>
+    </header>
     <h2>All Characters</h2>
     <div id="charContainer">
       
     </div>
-  </section>
+    <footer class = footer>Kemp-Schneider 2020</footer>
   </body>
 </html>

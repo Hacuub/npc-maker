@@ -61,8 +61,8 @@
       window.onload = init;
     </script>
     </head>
-    <header>
-      <h1>NPC Maker Submit Page</h1>
+    <header class = header>
+      <h1>NPC Maker <img id = dndLogo src = dnd-logo alt = "Dungeons and Dragons Logo"></h1>
       <div class = "navbar">
         <a href = "/">Home</a> | 
         <a href = "/random-char.html">Random Character</a> | 
@@ -72,7 +72,7 @@
       </div>
     </header>
     <div id = main>
-      <h2>Character to Submit (not working)</h2>
+      <h2>Submit A Character</h2>
       <form id = submitForm action = /submit-char method="POST">
         <label for  = nameField>Name: </label>
         <input type = text id = nameField name = name>
@@ -100,5 +100,6 @@
       <section id = content>
       </section>
     </div>
+    <footer class = footer>Kemp-Schneider 2020</footer>
   </body>
 </html>
