@@ -227,8 +227,8 @@ h1{
     border-style: none solid none solid;
     border-color: black;
 }
-#searchBar{
-    top: 23.25vh;
+#searchbar{
+    top: 23.5vh;
     width: 70.5vw;
     position: fixed;
     color: black;
